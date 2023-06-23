@@ -1,0 +1,16 @@
+:root{
+    --primary-color-grey-dark: #202123;
+    --primary-color-grey-dark0:#343541;
+    --primary-color-grey-dark1:#3e3f4b;
+}
+
+* {
+    margin:0;
+    padding:0;
+}  
+
+.box {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100%;
+}
