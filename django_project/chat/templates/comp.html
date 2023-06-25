@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+<!-- {% load static%}  -->
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -6,31 +6,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>InspireMeGPT</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/styleh.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
         <link rel="stylesheet" type="text/css" href="../static/css/main_style.css">
         <link rel="stylesheet" type="text/css" href="../static/css/nav_style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-VKjZ74zD+41RJlLQbWbywwIOyjrGxE9XfRUPP2QZZeJw1Bm0evXXj0/gvV8Wqmw06USuas7m0c6OvK6U0ZSfSg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://kit.fontawesome.com/5da172642b.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-        <!-- <style>
-            :root{
-                --primary-color-grey-dark: #202123;
-                --primary-color-grey-dark0:#343541;
-                --primary-color-grey-dark1:#3e3f4b;
-            }
-
-            * {
-                margin:0;
-                padding:0;
-            }  
-
-            .box{
-                display: flex;
-                flex-direction: row-reverse;
-                height: 100%;
-            }
-        </style> -->
     </head>
 <body class="box">
     <main class="right__section__title__suggestions__questioninput" >
@@ -89,6 +70,47 @@
                 </button>
             </div>
         </div>
+        <form id="message-form" method="POST" action="{% url 'chatapp:create_message' %}">
+            {% csrf_token %}
+            <input type="hidden" name="sender" value="{{ user1_id }}">
+            <input type="hidden" name="chat_room" value="{{ chatroom_id }}">
+            <textarea id="question__input" name="message" placeholder="Type your message..."></textarea>
+            <button type="submit" id="send__question-button">Send</button>
+          </form>
+          
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              const messageForm = document.getElementById("message-form");
+          
+              messageForm.addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent form submission
+          
+                const formData = new FormData(messageForm);
+                const csrfToken = formData.get("csrfmiddlewaretoken");
+          
+                fetch("/create-message/", {
+                  method: "POST",
+                  headers: {
+                    "X-CSRFToken": csrfToken
+                  },
+                  body: formData
+                })
+                  .then(response => {
+                    if (response.ok) {
+                      // Success! Clear the input field
+                      document.getElementById("question__input").value = "";
+                    } else {
+                      // Handle the error
+                      console.error("Error:", response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error("Error:", error);
+                  });
+              });
+            });
+          </script>
+          
         <script>
             window.onload = function() {
                 var questionInput = document.querySelector(".question__input__input");
@@ -240,8 +262,7 @@
             <div id="user__log__out__section" class="settings__log__section--item">
                 <p>
                     <i class="fa-regular fa-user" style="color: #ffffff;"></i>
-                    <!-- Log out -->
-                    <a id="logout" style="text-decoration: none; color:white;" href="{% url 'accounts:logout' %}">Log out</a>
+                    Log out
                 </p>
             </div>
         </div>
