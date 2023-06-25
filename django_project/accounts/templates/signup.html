@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/5da172642b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+    <title>InspireMeGPT - Signup</title>
+</head>
+<body>
+    <div class="form-container-signup" style="display: flex;justify-content: center;align-items: center;background-color: #343541;" >
+        <div class="container-signup" style="display: flex;flex-direction:column;justify-content:center;width: auto;background-color: #202123; border-radius: 30px;padding: 20px; color: white;">
+            <h1 style="margin:auto; margin-bottom: 30px;">Signup</h1><!--and Inspire Yourself-->
+            <form action="{% url 'accounts:signup' %}" method="post" style="display:flex;flex-direction: column;gap: 20px;">
+                {% csrf_token %}
+                <div class="form-group-signup">
+                    <label for="{{ form.username.id_for_label }}">Username:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group-signup">
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group-signup">
+                    <label for="{{ form.password1.id_for_label }}">Password:</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="form-group-signup">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+                    {{ form.password2 }}
+                </div>
+                <div class="form-group-signup" style="display: flex;justify-content: center;">
+                    <input class="btn btn-success btn-block" type="submit" value="Submit">
+                </div>
+                <div class="or-container" style="align-items: center;color: #ccc;display: flex;margin: 25px 0;">
+                    <div class="line-separator" style="background-color: #ccc;flex-grow: 5;height: 1px;"></div> 
+                    <div class="or-label" style="flex-grow: 1;margin: 0 15px;text-align: center;">or</div>
+                    <div class="line-separator" style="background-color: #ccc;flex-grow: 5;height: 1px;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                      <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" style="color: #545454;background-color: #ffffff;box-shadow: 0 1px 2px 1px #ddd;" href="https://www.google.com/"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google</a>
+                    </div>
+                </div>
+                <br>
+                <p class="text-inverse text-center">Already have an account? <a href="{% url 'accounts:login' %}" data-abc="true">Login</a></p>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+    <title>InspireMeGPT - Login</title>
+</head>
+<body>
+    <div class="parent-container">
+    <div class="form-container" style="position: fixed;display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; background-color: #343541;" >
+        <div class="container" style="display: flex;flex-direction:column;justify-content:center;width: auto;background-color: #202123; border-radius: 30px;padding: 60px; color: white;">
+            <h1 style="margin:auto; margin-bottom: 30px;">Login</h1><!--and Inspire Yourself-->
+            <form action="{% url 'accounts:login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password:</label>
+                    {{ form.password }}
+                </div>
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                <div class="form-group" style="display: flex;justify-content: center;">
+                    <input class="btn btn-success" type="submit" value="Submit">
+                </div>
+                <!-- <div class="form-group signup">
+                    <a id="signup" href="{% url 'accounts:signup' %}">If you are new here, sign up here!</a>
+                </div> -->
+                <div class="or-container" style="align-items: center;color: #ccc;display: flex;margin: 25px 0;">
+                    <div class="line-separator" style="background-color: #ccc;flex-grow: 5;height: 1px;">
+                    </div> 
+                    <div class="or-label" style="flex-grow: 1;margin: 0 15px;text-align: center;">or</div>
+                    <div class="line-separator"  style="background-color: #ccc;flex-grow: 5;height: 1px;"></div></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" style="color: #545454;background-color: #ffffff;box-shadow: 0 1px 2px 1px #ddd;" href="https://www.google.com/"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Login Using Google</a>
+                        </div>
+                    </div>
+                    <br>
+    
+                <p class="text-inverse text-center">New on InspireMeGPT?<a href="{% url 'accounts:signup' %}" data-abc="true"> Signup</a></p>
+                {% if form_submitted and error_message %}
+                <div class="error-message">
+                  <p>{{ error_message }}</p>
+                </div>
+              {% endif %}
+            </form>
+        </div>
+    </div>
+    <!-- <div class="additional-text" style="margin-left: 30px; text-align: center;">
+        <p>To be honest with you, anything you ask, I'll give you an inspirational quote. Look on the bright side, you might not learn about quantum computing, but you'll feel inspired enough to do it yourself.</p>
+    </div> -->
+</div>
+</body>
+</html>
