@@ -1,1 +1,1 @@
-# inspireMeGPT
+# InspireMeGPT
