@@ -1,5 +1,6 @@
 from .forms import InputForm, SignUpForm, SignUpForm2
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth import login, authenticate,  logout
 from .tokens import account_activation_token
 from django.utils.encoding import force_bytes
@@ -10,6 +11,7 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 
@@ -24,7 +26,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('chat:home')
     else:
         return render(request, 'account_activation_invalid.html')
@@ -48,8 +50,9 @@ def loginPageView(request):
                 context.pop('error_message', None)
                 return redirect('chat:home')  # Redirecionar para a view 'home' no app 'chat'
             else:
-                context['error_message'] = 'Invalid username or password'
+                messages.error(request, 'Invalid username or password')
 
+    # context['request'] = request
     return render(request, 'login.html', context)
 
 import logging
@@ -88,4 +91,4 @@ def account_activation_sent(request):
 
 def logoutPageView(request):
     logout(request)
-    return redirect('accounts:login')
+    return redirect(reverse('accounts:login'))
