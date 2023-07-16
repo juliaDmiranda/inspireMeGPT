@@ -59,7 +59,6 @@ import logging
 
 
 def signupPageView(request):
-
     logger = logging.getLogger(__name__)
     if request.method == 'POST':
         logger.info("Received POST request")
@@ -82,7 +81,7 @@ def signupPageView(request):
     else:
         logger.info("Received GET request")
 
-        form = SignUpForm2()
+        form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
 
