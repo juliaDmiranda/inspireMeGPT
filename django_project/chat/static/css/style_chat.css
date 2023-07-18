@@ -1,0 +1,20 @@
+.chat-message{ padding: 0; color: black;font-size: large;}
+#admin{
+    background-color: #e29096;
+}
+#user{
+    background-color: #efb6ba ;
+}
+.message{
+    padding: 20px;margin:20px;border-radius:10px;word-wrap: break-word;
+}
+.rounded-circle{  border-radius: 50%;}
+
+
+.sender { display: flex; align-items: center; }
+  
+.sender-img-admin {margin-left: auto;}
+
+.chat-message {
+    padding: 20px;
+} 

@@ -1,0 +1,39 @@
+:root{
+    --primary-color-dark: #9c1824;
+    --primary-color-dark0:#b42434;
+    --primary-color-dark1:#cd2f44;
+}
+form .errorlist {
+    color: yellow;
+    list-style: none;
+    padding: 0;
+  }
+.form-container-signup {
+  height:100vh;display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color-dark0);}
+.container-signup{
+  display: flex;flex-direction:column;justify-content:center;width: auto;
+  background-color: var(--primary-color-dark); 
+  border-radius: 30px;
+  padding: 20px; 
+  color: white;}
+.container-signup h1{margin:auto; margin-bottom: 30px;}
+.signup-form{
+   display:flex;
+   flex-direction: column;
+   gap: 20px; 
+}
+.form-group-b{ 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.form-control{
+  width: 400px;
+}
+ul{
+  list-style: none;
+  padding: 0;
+}
