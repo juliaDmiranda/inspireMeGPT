@@ -1,5 +1,15 @@
-{% extends 'base.html' %}
-
-{% block content %}
-  <p>Please confirm your email address to complete the registration. </p>
-{% endblock %}
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <title>InspireMeGPT - Check your email</title>
+</head>
+<body style="background-color: #9c1824;">
+    <main style="color: white;font-size: 30px;">
+      <p>Please confirm your email address to complete the registration. </p>
+    </main>
+</body>
+</html>

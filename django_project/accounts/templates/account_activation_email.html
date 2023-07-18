@@ -1,7 +1,12 @@
 {% autoescape off %}
 Hi {{ user.username }},
+Thank you for joining InspireMeGPT.
 
-Please click on the link below to confirm your registration:
+For anything you ask, InspireMeGPT will return an inspirational quote. 
+Look on the bright side, you might not learn about quantum computing, but you'll feel inspired enough to do it yourself.
+
+Please, use the link below to confirm your registration:
+
 
 http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}
 {% endautoescape %}
