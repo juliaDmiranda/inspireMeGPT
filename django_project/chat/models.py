@@ -7,6 +7,9 @@ class ChatRoom(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __str__(self):
         return self.title
     

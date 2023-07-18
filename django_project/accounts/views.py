@@ -1,4 +1,4 @@
-from .forms import InputForm, SignUpForm, SignUpForm2
+from .forms import LoginForm, SignUpForm
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login, authenticate,  logout
@@ -12,28 +12,30 @@ from django.utils.http import urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+import logging
 
 
 def activate(request, uidb64, token):
+    # called from activation link
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-
-    if user is not None and account_activation_token.check_token(user, token):
+    if user is not None and account_activation_token.check_token(user, token): # check token validity
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend') # user login
         return redirect('chat:home')
     else:
-        return render(request, 'account_activation_invalid.html')
+        return redirect(reverse('accounts:login'))
+
 
 def loginPageView(request):
+    # create from
     context = {}
-    form = InputForm(request.POST or None)
+    form = LoginForm(request.POST or None)
     context['form'] = form
     context['form_submitted'] = False
 
@@ -46,44 +48,32 @@ def loginPageView(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                # Limpar a mensagem de erro do contexto
-                context.pop('error_message', None)
-                return redirect('chat:home')  # Redirecionar para a view 'home' no app 'chat'
+                return redirect('chat:home')
             else:
                 messages.error(request, 'Invalid username or password')
-
-    # context['request'] = request
     return render(request, 'login.html', context)
 
-import logging
-
-
 def signupPageView(request):
-    logger = logging.getLogger(__name__)
     if request.method == 'POST':
-        logger.info("Received POST request")
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = False # prevent login
             user.save()
-            
-            current_site = get_current_site(request)
+            print(request)
+            # current_site = get_current_site(request)
             subject = 'Activate Your MySite Account'
             message = render_to_string('account_activation_email.html', {
                 'user': user,
-                'domain': current_site.domain,
+                'domain': get_current_site(request),
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            user.email_user(subject, message)
+            user.email_user(subject, message) # send message for user email
             return redirect('accounts:account_activation_sent')
     else:
-        logger.info("Received GET request")
-
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-
 
 def account_activation_sent(request):
     return render(request, 'account_activation_sent.html')
