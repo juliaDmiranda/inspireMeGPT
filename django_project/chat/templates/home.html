@@ -1,4 +1,4 @@
-<!-- {% load static %} -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -6,245 +6,76 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>InspireMeGPT</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/styleh.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/main_style.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/nav_style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-VKjZ74zD+41RJlLQbWbywwIOyjrGxE9XfRUPP2QZZeJw1Bm0evXXj0/gvV8Wqmw06USuas7m0c6OvK6U0ZSfSg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://kit.fontawesome.com/5da172642b.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-        <!-- <style>
-            :root{
-                --primary-color-grey-dark: #202123;
-                --primary-color-grey-dark0:#343541;
-                --primary-color-grey-dark1:#3e3f4b;
-            }
-
-            * {
-                margin:0;
-                padding:0;
-            }  
-
-            .box{
-                display: flex;
-                flex-direction: row-reverse;
-                height: 100%;
-            }
-        </style> -->
+        <script src="{% static 'js/script.js' %}"></script>   
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styleh.css' %}">
+        <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+        
     </head>
 <body class="box">
     <main class="right__section__title__suggestions__questioninput" >
         <section class="chat__box">
-            <h1 class="chatgpt__title">InspireMeGPT</h1>
-            <div class="box__examples__capabilities__limitations">
-                <div class="examples">
-                    <i class="fa-sharp fa-regular fa-sun" style="color: #ffffff;"></i>
-                    <h2 class="examples__header">Examples</h2>
-                    <div class="examples__lil__box">"Explain quantum computing in simple terms"</div>
-                    <div class="examples__lil__box">"How to write a love song?"</div>
-                    <div class="examples__lil__box">"What is the best programming language to building a chat like Whatsapp?"</div>
-                </div>
-                
-                <div class="capabilities">
-                    <i class="fas fa-bolt fa-thin"></i>
-                    <h2 class="capabilities__header">Capabilities</h2>
-                    <div class="capabilities__lil__box"><p class="capabilities__lil__box__text">Remenbers the inspirational quotessaid earlier in the conversation</p></div>
-                    <div class="capabilities__lil__box"><p class="capabilities__lil__box__text">Trained to decline any request</p></div>
-                    <div class="capabilities__lil__box"><p class="capabilities__lil__box__text">Help you to be aproved in an optative course</p></div>
-                </div>
-                <div class="limitations">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <h2 class="limitations__header">Limitations</h2>
-                    <div class="limitations__lil__box"><p class="limitations__lil__box__text">May occasionally generate incorrect information</p></div>
-                    <div class="limitations__lil__box"><p class="limitations__lil__box__text">May occasionally produce harmful instructions or biased content</p></div>
-                    <div class="limitations__lil__box"><p class="limitations__lil__box__text">Limited knowledge of world and events after 2021</p></div>
+            <div class="tohide">
+                <h1 class="chatgpt__title">InspireMeGPT</h1>
+                <div class="box__examples__capabilities__limitations">
+                    <div class="examples">
+                        <i class="fa-sharp fa-regular fa-sun" style="color: #ffffff;"></i>
+                        <h2 class="examples__header">Examples</h2>
+                        {% for item in examples %}
+                        <div class="examples__lil__box" onclick="exampleToInputEvent(event)">{{item}}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="capabilities">
+                        <i class="fas fa-bolt fa-thin"></i>
+                        <h2 class="capabilities__header">Capabilities</h2>
+                        {% for item in capabilities%}
+                        <div class="capabilities__lil__box"><p class="capabilities__lil__box__text">{{item}}</p></div>
+                        {% endfor %}
+                    </div>
+                    <div class="limitations">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <h2 class="limitations__header">Limitations</h2>
+                        {% for item in limitations %}
+                        <div class="limitations__lil__box"><p class="limitations__lil__box__text">{{item}}</p></div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="messager__4__users2" id="card" >
-                <div class="messager__4__users"  id="my-div">
-                </div>   
-                
-            </div>
-        </section>         
-        <script> // script para abrir conversa
-            
-            // function openChatByHistory(){
-            //     const chatBox = document.querySelector('.chat__box');
-            //     chatBox.innerHTML = ''; // Remove existing content
-                
-            //     const newElement1 = document.createElement('div');
-            //     // Add content and styles to newElement1
-            //     chatBox.appendChild(newElement1);
-                
-            //     const newElement2 = document.createElement('div');
-            //     //Add content and styles to newElement2
-            //     chatBox.appendChild(newElement2);
-            // }
-        </script>
+        </div>
+        <div class="chatContentContainer" hidden>
+        </div>
+
+    </section> 
         <div class="question__box" id="question__input-event">
             <div class="question__input--margin">
                 <textarea class="question__input__input" id = "question__input"  rows="4" cols="50"  placeholder="Type your question..."></textarea>
-                <button class="question__confirm" id="send__question-button">
-                    <i class="fa-solid fa-circle-chevron-right" id="confirm__icon"></i>
-                </button>
+                <button class="question__confirm" id="send__question-button" onclick="addMessageToChatroom(event)"><i class="fa-solid fa-circle-chevron-right" id="confirm__icon"></i></button>
             </div>
         </div>
-        <script>
-            window.onload = function() {
-                var questionInput = document.querySelector(".question__input__input");
-
-                questionInput.value = "";
-            };
-        </script>
-        <script>
-            // Retrieve all elements with class "examples__lil__box"
-            let exampleBoxes = document.getElementsByClassName("examples__lil__box");
-            
-            function exampleToInputEvent(event) {
-                var questionInput = document.querySelector(".question__input__input");
-                
-                questionInput.value = event.target.textContent.substring(1, event.target.textContent.length - 1);
-            }
-        
-            for (var i = 0; i < exampleBoxes.length; i++) {
-                exampleBoxes[i].addEventListener("click", exampleToInputEvent);
-            }
-        </script>
-        <script>
-            let question__input = document.getElementById("question__input-event");
-            let examples = document.querySelectorAll(".examples__lil__box");
-            
-            function messager__4__users__event(){
-            var newImage = document.createElement("img");
-            newImage.src = "../static/img/stonks.png";
-            newImage.className = "stonks__img";
-
-            var newDiv = document.createElement("div");
-            newDiv.className = "messager__4__users--text";
-            newDiv.innerHTML = "To be honest with you, anything you ask, I'll give you an inspirational quote. Look on the bright side, you might not learn about quantum computing, but you'll feel inspired enough to do it yourself.";
-
-            var quitButton = document.createElement('i');
-            quitButton.className = "fa-regular fa-circle-xmark";
-            quitButton.id = "quit"
-            quitButton.addEventListener('mouseover', function() {
-                this.style.cursor = "pointer";
-            });
-
-            var myDiv = document.getElementById("my-div");
-            myDiv.appendChild(newImage);
-            myDiv.appendChild(newDiv);
-            myDiv.appendChild(quitButton);
-            myDiv.classList.add("page-opening"); // Add the page-opening class
-
-            var element = document.querySelector("#my-div");
-            element.style.backgroundColor = "white";
-            element.style.boxShadow = "0px 10px 30px white";
-
-            question__input.removeEventListener("click", messager__4__users__event);
-            examples.forEach(function (example) {
-      example.removeEventListener("click", messager__4__users__event);
-    });
-        }
-        question__input.addEventListener("click", messager__4__users__event);
-        
-        examples.forEach(function(example) {
-            example.addEventListener("click", messager__4__users__event);
-        });
-        
-        
-        document.addEventListener("click", function (event) {
-        if (event.target.id === "quit") {
-            var myDiv = document.getElementById("my-div");
-            myDiv.style.display = "none";
-        }
-        });
-        </script>
-           
+        <footer class="Zenref">Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a></footer>
     </main>
         
     <nav class="left__section__historic__settings">
         <hr class="left__section__historic__settings__divisor__line">
         <div class="history__newchat__section">
-            <div class="new__chat"><h1>+</h1>New chat</div>
+            <div class="new__chat" onclick="newChat()"><h1>+</h1>New chat</div>
             <scroll-container class="history__section--container">
-                <scroll-page class="history__section--page" id="page-1"><div class="history__section--tittle" >Como arrumar a mala no dia em que for sair</div></scroll-page>
-                
+                {% for chatroom in chatrooms %}
+                <scroll-page class="history__section--page" data-id="{{ chatroom.id }}" onclick="updateChatContentById(event, '{{chatroom.id}}')"><div class="history__section--tittle">{{ chatroom.title }}</div></scroll-page>
+                {% endfor %}       
             </scroll-container>
-            
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            var pageCount = 1;
-            var new_chat_click   = document.querySelector(".new__chat");
-            var chat_history    = document.querySelector(".history__section--page");
-            var scrollContainer = document.querySelector(".history__section--container");
-            var confirmQuestionButtom = document.querySelector(".question__confirm")
-            function openChatByNewChat(){
-                const chatBox = document.querySelector('.chat__box');
-                chatBox.innerHTML = ''; // Remove existing content
-                var newImage = document.createElement("img");
-                newImage.src = "../static/img/stonks.png";
-                newImage.className = "stonks__img";
-                newText = document.createElement("p")
-                newText.textContent = pageCount;
-                newText.style.fontSize = "20px";
-                newText.style.backgroundColor = "yellow";
-                chatBox.appendChild(newImage)
-                chatBox.appendChild(newText)
-            }
-
-            function newChat(){
-                pageCount++;
-                var newScrollPage = document.createElement('scroll-page');
-                newScrollPage.setAttribute('class', 'history__section--page');
-                newScrollPage.setAttribute('id', "page-"+pageCount);
-                newScrollPage.innerHTML = '<div class="history__section--tittle">New Chat ' + pageCount + '</div>';
-                scrollContainer.insertBefore(newScrollPage, scrollContainer.firstChild);
-            }
-
-            new_chat_click.addEventListener('click', newChat);
-
-            new_chat_click.addEventListener('click', openChatByNewChat);
-            
-                // - criar os elementos por mensagem [style_user --> sender=user, style_chat --> sender=chat]
-                // - Procurar o histórico no banco de dados [no DOM --> id = page-id,no SQLITE --> pk = id ]
-                // - Criar javascript para criar os elementos automáticos (caixa de diálogo) 
-            
-            chat_history.addEventListener('click', openChatByNewChat);
-            /*Colocar condição de ao clicar em confirmação disparar esse evento se estiver na página inicial*/
-            confirmQuestionButtom.addEventListener('click', openChatByNewChat);
-        })
-            
-
-
-        </script>
         <div class="settings__log__section">
-            <div id="themes" class="settings__log__section--item">
-            <p>
-                <i class="fa-solid fa-palette" style="color: #ffffff;"></i>
-                Theme
-            </p>
-            </div>
-            <div class="settings__log__section--item">
-                <p>
-                    <i class="fa-solid fa-trash-can" style="color: #ffffff;"></i>
-                    Clear data
-                </p>
-            </div>
-            <div class="settings__log__section--item">
-                <p>
-                    <i class="fa-solid fa-file-export" style="color: #ffffff;"></i>
-                    Export data
-                </p>
-            </div>
-            <div id="user__log__out__section" class="settings__log__section--item">
-                <p>
-                    <i class="fa-regular fa-user" style="color: #ffffff;"></i>
-                    <!-- Log out -->
-                    <a id="logout" style="text-decoration: none; color:white;" href="{% url 'accounts:logout' %}">Log out</a>
-                </p>
-            </div>
+            <div id="user__log__out__section" class="settings__log__section--item"><i class="fa-regular fa-user" style="color: #ffffff;"></i><a id="logout" style="text-decoration: none; color:white;" href="{% url 'accounts:logout' %}">Log out</a></div>
         </div>
-    </nav>      
+    </nav>   
+    <script>
+        const chatBox = document.querySelector('.chat__box');
+        const chatContent = document.querySelector('.chatContentContainer');
+        const historyContent = document.querySelector('.history__section--container');
+        var questionInput = document.querySelector(".question__input__input")
+        var chatroom_id_current = -1
+    </script>   
 </body>
 </html>

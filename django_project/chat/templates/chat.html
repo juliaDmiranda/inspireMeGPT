@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="../static/css/style_chat.css">
+
+{%for message in messages%}
+        {%if message.sender == user%}
+        <div class="chat-message" id="user">
+            <div class="sender"><img src="{% static 'img/cat.png' %}" class="rounded-circle" alt="user icon" width="40" height="40"></div>
+            <div class="message" >{{message.message}}</div>
+        </div>
+        {% else %}
+        
+        <div class="chat-message"id="admin">
+            <div class="sender"> <img src="{% static 'img/bear.png' %}" class="rounded-circle" alt="chat icon" width="40" height="40"></div>
+            <div class="message" >Dear {{user}}<br>{{message.message}}</div>
+        </div>
+        {% endif %} 
+{% endfor%} 

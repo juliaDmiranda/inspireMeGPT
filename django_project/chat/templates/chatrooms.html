@@ -1,0 +1,3 @@
+{% for chatroom in chatrooms %}
+    <scroll-page class="history__section--page" data-id="{{ chatroom.id }}" onclick="updateChatContentById(event, '{{chatroom.id}}')"><div class="history__section--tittle">{{ chatroom.title }}</div></scroll-page>
+{% endfor %}  
