@@ -1,16 +1,313 @@
-:root{
-    --primary-color-grey-dark: #202123;
+/* :root{
+    --primary-color-grey-dark: #18191b;
     --primary-color-grey-dark0:#343541;
     --primary-color-grey-dark1:#3e3f4b;
-}
+} */
 
 * {
     margin:0;
     padding:0;
 }  
+.Zenref {
+    font-size: 15px;
+    color: white;
+    padding-bottom: 20px;
 
+}
 .box{
     display: flex;
     flex-direction: row-reverse;
     height: 100%;
 }
+
+:root{
+    --primary-color-dark: #202123;
+    --primary-color-dark0:#343541;
+    --primary-color-dark1:#3e3f4b;
+  }
+
+  :root{
+    --primary-color-dark: #9c1824;
+    --primary-color-dark0:#b42434;
+    --primary-color-dark1:#cd2f44;
+}
+.theme1{
+    --primary-color-dark: #3c1518;
+    --primary-color-dark0:#69140e;
+    --primary-color-dark1:#a44200;
+  }
+.theme2{
+    --primary-color-dark: #3c1518;
+    --primary-color-dark0:#69140e;
+    --primary-color-dark1:wheat;
+  }
+.right__section__title__suggestions__questioninput{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:var(--primary-color-dark0);
+    width: 85%;
+    height: 100vh;
+}
+
+.chat__box{
+    /* display: flex;
+    flex-direction: column; */
+    height: 85%;
+    width: 100%;
+    /* background-color: wheat; */
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    /* 
+    align-content: center; */
+    
+}
+
+/* .chatContentContainer{
+    height: 97%;
+    width: 100%;
+    background-color: wheat;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    align-content: center;
+} */
+
+.chatContentContainer{
+    background-color:#efb6ba; 
+    height: 100%;
+} 
+
+.chatgpt__title {
+    height: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-family: 'Great Vibes', sans-serif;
+    color: white;  
+    text-align:center;
+    width: 100%;
+
+}
+
+.box__examples__capabilities__limitations{
+    height: 60%;
+    display:flex;
+    text-align: center; 
+    justify-content: center;
+    color: #d4cdce;
+    width: 100%;
+}
+
+.examples__lil__box, .capabilities__lil__box, .limitations__lil__box{
+    background-color: var(--primary-color-dark1);
+    margin: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    width: 263px;
+    border-radius: 0.2cm;
+    font-size:20px;
+    border: none;
+}
+.examples__lil__box, .capabilities__lil__box, .limitations__lil__box:hover{
+    user-select: none; 
+}
+
+.examples__lil__box:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    
+}
+
+
+.messager__4__users2{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 26.8%;
+}
+.messager__4__users{
+    
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border-radius: 20px;
+    height: 60%;
+    /* box-shadow: 0px 2px 20px red; */
+
+}
+
+.stonks__img
+{
+    width: 20%;
+}
+
+#quit{
+    box-shadow: 0px 2px 20px red;
+    background-color: red;
+    /* width: 10%; */
+    align-self: center;
+    font-size: 40px;
+    border-radius: 30px;
+    color: white;
+  }
+.messager__4__users--text{
+    align-self: center;
+    width: 70%;
+}
+
+.question__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+}
+
+.question__input--margin{
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 2px 20px var(--primary-color-dark);
+    background-color: var(--primary-color-dark1);
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    width: 60%;
+} 
+.question__input__input {
+    background: transparent;
+    /* height: 50px; */
+    width: 95%;
+    color: #d4cdce;
+    font-size: 20px;
+    resize: none;
+    border: 0;
+    padding-left: 20px;
+}
+
+.question__input__input:focus {
+    outline: none;
+}
+
+.question__confirm{
+    margin: 10px;
+    width: 5%;
+    background: transparent;
+    border: 0;
+}
+/* não está funcionando o hover*/
+.question__confirm:hover{ 
+    cursor: pointer;
+}
+
+#confirm__icon{
+    color: #ffffff;
+    font-size: 40px;
+    /* opacity: 0.2 !important; */
+
+}
+
+.page-opening {
+    animation: page-opening-animation 0.5s ease-in-out;
+  }
+  
+@keyframes page-opening-animation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* SIDE NAV */
+.left__section__historic__settings {
+    display: flex;
+    height: 100vh;
+    width: 15%;
+    background:var(--primary-color-dark);
+    flex-direction: column;
+}
+.history__newchat__section {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+.new__chat{
+    display: flex;
+    align-items:center;
+    margin: 10px;
+    padding: 10px;
+    text-indent:10px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #d4cdce;
+    border: #d4cdce; 
+    border-width:0.01cm; 
+    border-style:solid;
+    border-radius: 3px;
+}
+.new__chat:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    user-select: none;
+}     
+.history__section--container {
+    display: block;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+.history__section--page {
+    display: flex;
+    margin-left:  15px;
+    border-radius: 7px;
+    padding: 18px;
+}
+
+.history__section--page:hover{
+    user-select: none;
+    background-color: var(--primary-color-dark1);
+    cursor: pointer;
+    padding-right: 60px;
+}
+
+.settings__log__section{
+    border-top-color:#d4cdce;
+    border-top-style:groove;
+    border-top-width: 1px;
+    display: flex;
+    flex-direction: column;
+    color: #d4cdce;
+    justify-content:space-around;
+    /* flex-wrap: wrap; */
+    height:10%; 
+}
+.settings__log__section--item:hover{
+    user-select: none;
+    background-color: var(--primary-color-dark1) ;
+    cursor: pointer;
+}
+.settings__log__section--item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin-left:  15px;
+    border-radius: 8px;
+    padding: 20px;
+    /* height: 50%; */
+}
+.history__section--tittle{
+    color: #d4cdce;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%; /* whatever maximum width you want to use */
+}
+
+
